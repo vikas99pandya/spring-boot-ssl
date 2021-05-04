@@ -1,9 +1,9 @@
 package main.app.controller;
 
+import main.app.aspect.SetMdcValues;
 import main.app.model.ModelEmployee;
 import main.app.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +17,7 @@ public class EmployeeInfoController {
     @Autowired
     EmployeeService employeeService;
 
+    @SetMdcValues
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ModelEmployee> getSpecificClass(@PathVariable long id) {
 

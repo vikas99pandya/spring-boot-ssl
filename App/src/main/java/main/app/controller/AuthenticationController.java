@@ -1,6 +1,7 @@
 package main.app.controller;
 
 
+import main.app.aspect.SetMdcValues;
 import main.app.token.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class AuthenticationController {
     @Autowired
     UserTokenManager userTokenManager;
 
+    @SetMdcValues
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<String> authenticateUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

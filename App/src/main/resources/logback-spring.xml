@@ -12,6 +12,7 @@
                 {"application": "${application-name}",
                 "datetime": "%date{"yyyy-MM-dd'T'HH:mm:ss,SSSXXX"}",
                 "applicationVersion": "${application-version}",
+                "clientId": "${clientId}",
                 "class": "%logger{36}",
                 "loglevel": "%level",
                 "traceId": "%X{X-B3-TraceId}",
@@ -31,6 +32,7 @@
                 {"application": "${application-name}",
                 "datetime": "%date{"yyyy-MM-dd'T'HH:mm:ss,SSSXXX"}",
                 "applicationVersion": "${application-version}",
+                "clientId": "%X{clientId}",
                 "class": "%logger{36}",
                 "loglevel": "%level",
                 "traceId": "%X{X-B3-TraceId}",
@@ -51,7 +53,7 @@
         </rollingPolicy>
     </appender>
 
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="ApplicationLogAppender"/>
         <appender-ref ref="RollingFile" />
     </root>

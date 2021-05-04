@@ -18,7 +18,14 @@ public class AppExceptionAdvice extends ResponseEntityExceptionHandler{
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     protected ResponseEntity<ErrorResponse> handleConflict(
             RuntimeException ex, WebRequest request) {
-        return populateErrorDetails(ex,"run time error",HttpStatus.INTERNAL_SERVER_ERROR);
+        return populateErrorDetails(ex,"RUNTIME",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ConfigurationException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    protected ResponseEntity<ErrorResponse> handleConfigErrors(
+            ConfigurationException ex, WebRequest request) {
+        return populateErrorDetails(ex,"CONFIG",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

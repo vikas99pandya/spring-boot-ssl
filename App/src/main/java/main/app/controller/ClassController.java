@@ -1,6 +1,7 @@
 package main.app.controller;
 
 
+import main.app.aspect.SetMdcValues;
 import main.app.model.ModelClass;
 import main.app.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,30 +18,35 @@ public class ClassController {
     @Autowired
     ClassService classService;
 
+    @SetMdcValues
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ModelClass>> getClasses() {
         List<ModelClass> list= classService.getClasses();
         return new ResponseEntity<List<ModelClass>>(list, HttpStatus.OK);
     }
 
+    @SetMdcValues
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ModelClass> getSpecificClass(@PathVariable long id) {
         ModelClass modelClass= classService.getClassById(id);
         return new ResponseEntity<ModelClass>(modelClass, HttpStatus.OK);
     }
 
+    @SetMdcValues
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity addClass(@RequestBody ModelClass modelClass) {
         classService.addClass(modelClass);
         return new ResponseEntity<ModelClass>(HttpStatus.OK);
     }
 
+    @SetMdcValues
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity updateClass(@RequestBody ModelClass modelClass) {
         classService.addClass(modelClass);
         return new ResponseEntity<ModelClass>(HttpStatus.OK);
     }
 
+    @SetMdcValues
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     public ResponseEntity deleteClass(@PathVariable long id) {
         classService.deleteClass(id);

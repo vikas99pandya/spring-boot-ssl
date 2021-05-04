@@ -28,7 +28,7 @@ public class ClassService {
         return resultData;
     }
 
-    @Cacheable(value="classes", key="#id")
+
     public ModelClass getClassById(Long id){
         return transformClassData(classRepository.findById(id).get());
     }
