@@ -1,0 +1,9 @@
+server:
+  port: 8081
+  ssl:
+    key-store: classpath:CustServer.jks
+    key-store-password: password
+    keyStoreType: JKS
+
+security.:
+  require-ssl: true
