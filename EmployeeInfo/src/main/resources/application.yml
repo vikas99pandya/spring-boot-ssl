@@ -1,3 +1,7 @@
+spring:
+  application:
+    name: employee-info-service
+
 server:
   port: 8081
   ssl:

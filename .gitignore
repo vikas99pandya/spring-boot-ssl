@@ -1,3 +1,20 @@
-# Project exclude paths
-/App/target/
-/EmployeeInfo/target/
+# Intellij
+.idea/
+*.iml
+*/.DS_Store
+.mvn/
+# Eclipse
+.project
+.settings/
+.classpath
+.pmd
+
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Compiled code
+target/
+*.class
+
+node_modules/

@@ -3,21 +3,40 @@
 
     <property name="LOGS" value="./logs" />
 
-    <appender name="Console"
-              class="ch.qos.logback.core.ConsoleAppender">
+    <springProperty scope="context" name="application-name" source="spring.application.name"/>
+    <springProperty scope="context" name="application-version" source="applicationVersion"/>
+
+    <appender name="ApplicationLogAppender" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+                {"application": "${application-name}",
+                "datetime": "%date{"yyyy-MM-dd'T'HH:mm:ss,SSSXXX"}",
+                "applicationVersion": "${application-version}",
+                "class": "%logger{36}",
+                "loglevel": "%level",
+                "traceId": "%X{X-B3-TraceId}",
+                "spanId": "%X{X-B3-SpanId}",
+                "message": "%replace(%msg){'"', '\\"'}"}%n
             </Pattern>
         </layout>
     </appender>
+
 
     <appender name="RollingFile"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOGS}/spring-boot-logger.log</file>
         <encoder
                 class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+            <Pattern>
+                {"application": "${application-name}",
+                "datetime": "%date{"yyyy-MM-dd'T'HH:mm:ss,SSSXXX"}",
+                "applicationVersion": "${application-version}",
+                "class": "%logger{36}",
+                "loglevel": "%level",
+                "traceId": "%X{X-B3-TraceId}",
+                "spanId": "%X{X-B3-SpanId}",
+                "message": "%replace(%msg){'"', '\\"'}"}%n
+            </Pattern>
         </encoder>
 
         <rollingPolicy
@@ -32,16 +51,10 @@
         </rollingPolicy>
     </appender>
 
-    <!-- LOG everything at INFO level -->
     <root level="info">
+        <appender-ref ref="ApplicationLogAppender"/>
         <appender-ref ref="RollingFile" />
-        <appender-ref ref="Console" />
     </root>
 
-    <!-- LOG "com.baeldung*" at TRACE level -->
-    <logger name="com.baeldung" level="trace" additivity="false">
-        <appender-ref ref="RollingFile" />
-        <appender-ref ref="Console" />
-    </logger>
 
 </configuration>
