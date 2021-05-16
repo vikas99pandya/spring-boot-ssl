@@ -58,7 +58,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         // Get authorization header and validate
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if(request.getRequestURI().contains("/h2")){
+        if(request.getRequestURI().contains("/h2")
+                || request.getRequestURI().contains("/actuator")
+                || request.getRequestURI().contains("/swagger-ui")
+                || request.getRequestURI().contains("/api-docs")){
             chain.doFilter(request, response);
             return;
         }

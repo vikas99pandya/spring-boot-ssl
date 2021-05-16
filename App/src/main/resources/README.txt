@@ -10,12 +10,14 @@
 .. Https security for calling other microservices
 .. Exception handling with controller advice
 .. Sleuth for transaction handling
+.. Circuit breaker/Spring retry implementation
+
 .. Spring boot test, integration test, TDD test
 .. Actuator for app monitoring ??
 .. Open API & Swagger ??
-.. Message respurce handling ??
+.. Message resource handling ??
 .. PDF and excel generation ??
-.. Circuit breaker implementation ??
+
 .. Soap service ??
 
 
@@ -29,3 +31,12 @@ keytool -export -alias CustServer -file CustServer.crt -keystore CustServer.jks
 
 -Add Server certificate to client truststore
 keytool -importcert -alias CustServer -keystore CustClient.jks -file CustServer.cer
+
+
+<---------- Swagger & Open API --------------------->
+
+http://localhost:8080/swagger-ui-custom.html
+http://localhost:8080/api-docs
+
+
+<----------

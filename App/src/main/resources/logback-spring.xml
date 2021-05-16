@@ -53,7 +53,7 @@
         </rollingPolicy>
     </appender>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="ApplicationLogAppender"/>
         <appender-ref ref="RollingFile" />
     </root>

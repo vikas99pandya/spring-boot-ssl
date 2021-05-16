@@ -2,8 +2,12 @@
 server:
   port: 8080
 
-
-  # Database config
+springdoc:
+  api-docs:
+    path: "/api-docs"
+  swagger-ui:
+    path: "/swagger-ui-custom.html"
+# Database config
 spring:
   application:
     name: my-springboot-app
@@ -13,8 +17,38 @@ spring:
     username: test
     password: test
     initialization-mode: always
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: ps-demo
+      maximum-pool-size: 5
+      max-lifetime: 1800000
+      idle-timeout: 30000
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     h2:
       console.enabled: true
 
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3 # calls allowed in half open state
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s # before go to half open state from open state
+        failureRateThreshold: 5  # before it goes to open state
+        eventConsumerBufferSize: 10
+        recordExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+    instances:
+      employeeService:
+        baseConfig: default
+      retryEmployeeService:
+        maxRetryAttempts: 5
+        waitDuration: 10000
